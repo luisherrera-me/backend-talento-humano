@@ -15,4 +15,8 @@ export class UsuariosService {
         const newUsusario =  this.usuariosRepoaitory.create(usuario);
         return this.usuariosRepoaitory.save(newUsusario);
     }
+
+    findAll(){
+        return this.usuariosRepoaitory.find()
+    }
 }

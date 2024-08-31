@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { CreateUsusarioDto } from './dto/create-usuario.dto';
 import { UsuariosService } from './usuarios.service';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 
 @Controller('usuarios')
 export class UsuariosController {
@@ -13,6 +14,7 @@ export class UsuariosController {
     // DELETE -> Eliminar
 
 
+    @UseGuards(JwtAuthGuard)
     @Get()// http://localhost/usuarios -> GET
     findAll(){
         return this.usersService.findAll();

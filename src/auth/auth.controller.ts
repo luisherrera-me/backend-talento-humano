@@ -13,7 +13,7 @@ export class AuthController {
         return this.authService.register(user);
     }
 
-    @Post('login') // http://localhost/auth/register -> POST
+    @Post('login') // http://localhost/auth/login -> POST
     login(@Body() loginDto: loginAuthDto){
         return this.authService.login(loginDto);
     }

@@ -13,7 +13,6 @@ export class AuthService {
     private jwtService: JwtService
 ){}
 
-
     async register(usuario: registerAuthDto){
         
         const emailExist = await this.usuariosRepository.findOneBy({email: usuario.email})
@@ -25,12 +24,24 @@ export class AuthService {
                  HttpStatus.CONFLICT
                 );
         }
+        //GENERAR USUARIO
         const newUsusario =  this.usuariosRepository.create(usuario);
+
+        //GENERAR TOKEN
         const payload = { id: newUsusario.idUsuario, email: newUsusario.email}
         const token = this.jwtService.sign(payload)
 
-        return this.usuariosRepository.save(newUsusario);
+        //GUARDAR
+        this.usuariosRepository.save(newUsusario);
 
+
+        //RETORNO DE INFORMACION 
+        const data = {
+            user: newUsusario,
+            token: token
+        }
+
+        return data
     }
 
     async login(loginDto: loginAuthDto){
@@ -45,6 +56,7 @@ export class AuthService {
                  HttpStatus.NOT_FOUND
                 );
         }
+
         const isPasswordValid = await compare(control, userFound.control);
         if(!isPasswordValid){
             return new HttpException(
@@ -52,6 +64,7 @@ export class AuthService {
                  HttpStatus.FORBIDDEN
                 );
         }
+
         const payload = { id: userFound.idUsuario, email: userFound.email}
         const token = this.jwtService.sign(payload)
 

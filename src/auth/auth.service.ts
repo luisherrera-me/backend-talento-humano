@@ -13,6 +13,7 @@ export class AuthService {
     private jwtService: JwtService
 ){}
 
+
     async register(usuario: registerAuthDto){
         
         const emailExist = await this.usuariosRepository.findOneBy({email: usuario.email})
@@ -24,9 +25,12 @@ export class AuthService {
                  HttpStatus.CONFLICT
                 );
         }
-
         const newUsusario =  this.usuariosRepository.create(usuario);
+        const payload = { id: newUsusario.idUsuario, email: newUsusario.email}
+        const token = this.jwtService.sign(payload)
+
         return this.usuariosRepository.save(newUsusario);
+
     }
 
     async login(loginDto: loginAuthDto){

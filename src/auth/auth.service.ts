@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Delete, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Usuario } from 'src/usuarios/usuario.entity';
 import { Repository } from 'typeorm';
@@ -27,21 +27,22 @@ export class AuthService {
         //GENERAR USUARIO
         const newUsusario =  this.usuariosRepository.create(usuario);
 
-        //GENERAR TOKEN
-        const payload = { id: newUsusario.idUsuario, email: newUsusario.email}
-        const token = this.jwtService.sign(payload)
-
         //GUARDAR
-        this.usuariosRepository.save(newUsusario);
+        const userSave = await this.usuariosRepository.save(newUsusario);
 
 
+        //GENERAR TOKEN
+        const payload = { id: userSave.idUsuario, email: userSave.email}
+        const token = this.jwtService.sign(payload)
         //RETORNO DE INFORMACION 
         const data = {
-            user: newUsusario,
+            user: userSave,
             token: token
         }
 
-        return data
+        delete data.user.control;
+
+        return data;
     }
 
     async login(loginDto: loginAuthDto){
@@ -73,6 +74,8 @@ export class AuthService {
             token: token
         }
         
+        delete data.user.estado;
+
         return data;
     }
 }

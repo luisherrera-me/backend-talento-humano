@@ -9,6 +9,6 @@ export class loginAuthDto{
 
     @IsNotEmpty()
     @IsString()
-    @MinLength(6, {message: 'la muy corta'})
+    @MinLength(6, {message: 'la contraseña muy corta'})
     control: string;
 }

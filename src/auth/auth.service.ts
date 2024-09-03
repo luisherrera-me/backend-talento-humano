@@ -41,6 +41,7 @@ export class AuthService {
             token: token
         }
 
+        //delete data.user.control
         return data
     }
 
@@ -73,6 +74,7 @@ export class AuthService {
             token: token
         }
         
+        //delete data.user.control
         return data;
     }
 }

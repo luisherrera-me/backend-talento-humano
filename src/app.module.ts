@@ -11,8 +11,7 @@ import { EmpleadosModule } from './empleados/empleados.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306, // VIDA DE MY VIDA
-      //port: 3306,
+      port: 3306,
       username: 'admin',
       password: 'admin009',
       database: 'talentohumanosin_posesio',

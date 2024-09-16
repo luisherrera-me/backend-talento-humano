@@ -7,6 +7,7 @@ import { JwtStrategy } from 'src/auth/jwt/jwt.strategy';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Persona])],
+  imports: [TypeOrmModule.forFeature([Persona])],
   controllers: [EmpleadosController],
   providers: [EmpleadosService, JwtStrategy]
 })

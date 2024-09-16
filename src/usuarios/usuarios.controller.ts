@@ -19,6 +19,7 @@ export class UsuariosController {
     @Get()// http://localhost/usuarios -> GET
     findAll(){
         return this.usersService.findAll();
+
     }
 
     @Post() // http://localhost/usuarios -> POST

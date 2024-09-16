@@ -32,10 +32,7 @@ export class UsuariosService {
         //Información actualizada
         return this.usuariosRepoaitory.save(UpdateUser)
     }
-
-
     
-
 
     findAll(){
         return this.usuariosRepoaitory.find()
